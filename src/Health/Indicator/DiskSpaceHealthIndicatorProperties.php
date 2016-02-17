@@ -9,7 +9,14 @@ namespace Actuator\Health\Indicator;
  */
 class DiskSpaceHealthIndicatorProperties
 {
+    /**
+     * One MB in bytes.
+     */
     const MEGABYTES = 1048576;
+
+    /**
+     * Default threshold - 10MB.
+     */
     const DEFAULT_THRESHOLD = 10485760;
 
     /**
