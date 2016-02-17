@@ -26,7 +26,6 @@ final class Health
      */
     public function __construct(HealthBuilder $builder)
     {
-        assert(!is_null($builder), 'Builder must not be null');
         $this->status = $builder->status;
         $this->details = $builder->details;
     }

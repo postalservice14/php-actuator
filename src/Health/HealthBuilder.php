@@ -53,6 +53,16 @@ class HealthBuilder
     }
 
     /**
+     * Create a new Builder instance with a Status::UNKNOWN status.
+     *
+     * @return HealthBuilder
+     */
+    public function unknown()
+    {
+        return $this->status(new Status(Status::UNKNOWN));
+    }
+
+    /**
      * Create a new Builder instance with a Status::UP status.
      *
      * @return HealthBuilder
@@ -60,6 +70,16 @@ class HealthBuilder
     public function up()
     {
         return $this->status(new Status(Status::UP));
+    }
+
+    /**
+     * Create a new Builder instance with a Status::OUT_OF_SERVICE status.
+     *
+     * @return HealthBuilder
+     */
+    public function outOfService()
+    {
+        return $this->status(Status::OUT_OF_SERVICE);
     }
 
     /**
