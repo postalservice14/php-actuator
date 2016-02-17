@@ -9,8 +9,8 @@ namespace Actuator\Health\Indicator;
  */
 class DiskSpaceHealthIndicatorProperties
 {
-    const MEGABYTES = 1024 * 1024;
-    const DEFAULT_THRESHOLD = 10 * self::MEGABYTES;
+    const MEGABYTES = 1048576;
+    const DEFAULT_THRESHOLD = 10485760;
 
     /**
      * Path used to compute the available disk space.
