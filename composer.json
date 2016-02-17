@@ -24,8 +24,10 @@
     "require-dev": {
         "phpunit/phpunit" : "4.*",
         "scrutinizer/ocular": "~1.1",
-        "squizlabs/php_codesniffer": "~2.3",
-        "doctrine/dbal": "^2.5"
+        "squizlabs/php_codesniffer": "~2.3"
+    },
+    "suggest": {
+        "doctrine/dbal": "Used with DoctrineConnectionHealthIndicator"
     },
     "autoload": {
         "psr-4": {
