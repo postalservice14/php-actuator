@@ -1,5 +1,5 @@
 {
-    "name": ":postalservice14/php-actuator",
+    "name": "postalservice14/php-actuator",
     "type": "library",
     "description": "PHP port of Spring Actuator which provides an easy health checking capability of services.",
     "keywords": [
