@@ -95,4 +95,26 @@ class OrderedHealthAggregatorTest extends \PHPUnit_Framework_TestCase
             $this->healthAggregator->aggregate($healths)->getStatus()
         );
     }
+
+    /** @test */
+    public function noFilteredStatusResultsInUnknown()
+    {
+        $this->healthAggregator->setStatusOrder(
+            array('FOO')
+        );
+
+        $builder = new HealthBuilder();
+
+        $healths = array();
+        $healths['h1'] = $builder->status(new Status(Status::DOWN))->build();
+        $healths['h2'] = $builder->status(new Status(Status::UP))->build();
+        $healths['h3'] = $builder->status(new Status(Status::UNKNOWN))->build();
+        $healths['h4'] = $builder->status(new Status(Status::OUT_OF_SERVICE))->build();
+        $healths['h5'] = $builder->status(new Status('CUSTOM'))->build();
+
+        $this->assertEquals(
+            new Status(Status::UNKNOWN),
+            $this->healthAggregator->aggregate($healths)->getStatus()
+        );
+    }
 }

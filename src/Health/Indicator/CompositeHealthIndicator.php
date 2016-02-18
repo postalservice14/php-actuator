@@ -4,14 +4,13 @@ namespace Actuator\Health\Indicator;
 
 use Actuator\Health\Health;
 use Actuator\Health\HealthAggregatorInterface;
-use JsonSerializable;
 
 /**
  * HealthIndicator that returns health indications from all registered delegates.
  *
  * @package Actuator\Health\Indicator
  */
-class CompositeHealthIndicator implements HealthIndicatorInterface, JsonSerializable
+class CompositeHealthIndicator implements HealthIndicatorInterface
 {
     /**
      * @var HealthIndicatorInterface[]
@@ -59,17 +58,5 @@ class CompositeHealthIndicator implements HealthIndicatorInterface, JsonSerializ
         }
 
         return $this->healthAggregator->aggregate($healths);
-    }
-
-    /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize()
-    {
-        return $this->health();
     }
 }

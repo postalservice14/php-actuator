@@ -32,7 +32,7 @@ class HealthBuilder
         }
 
         $this->status = $status;
-        $this->details = (object)$details;
+        $this->details = $details;
     }
 
     /**
@@ -121,7 +121,7 @@ class HealthBuilder
     {
         assert(!is_null($key), 'Key must not be null');
         assert(!is_null($message), 'Message must not be null');
-        $this->details->{$key} = $message;
+        $this->details[strval($key)] = $message;
         return $this;
     }
 

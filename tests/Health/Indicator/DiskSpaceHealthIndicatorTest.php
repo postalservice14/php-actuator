@@ -73,9 +73,9 @@ namespace Actuator\Test\Health\Indicator {
             $health = $healthIndicator->health();
             $this->assertEquals(Status::DOWN, $health->getStatus()->getCode());
             $details = $health->getDetails();
-            $this->assertNotEquals(static::THRESHOLD_BYTES, $details->threshold);
-            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->free);
-            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->total);
+            $this->assertNotEquals(static::THRESHOLD_BYTES, $details['threshold']);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details['free']);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details['total']);
         }
 
         /** @test */
@@ -87,9 +87,9 @@ namespace Actuator\Test\Health\Indicator {
             $health = $this->healthIndicator->health();
             $this->assertEquals(Status::UP, $health->getStatus()->getCode());
             $details = $health->getDetails();
-            $this->assertEquals(static::THRESHOLD_BYTES, $details->threshold);
-            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->free);
-            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->total);
+            $this->assertEquals(static::THRESHOLD_BYTES, $details['threshold']);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details['free']);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details['total']);
         }
 
         /** @test */
@@ -101,9 +101,9 @@ namespace Actuator\Test\Health\Indicator {
             $health = $this->healthIndicator->health();
             $this->assertEquals(Status::DOWN, $health->getStatus()->getCode());
             $details = $health->getDetails();
-            $this->assertEquals(static::THRESHOLD_BYTES, $details->threshold);
-            $this->assertEquals(static::THRESHOLD_BYTES - 10, $details->free);
-            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->total);
+            $this->assertEquals(static::THRESHOLD_BYTES, $details['threshold']);
+            $this->assertEquals(static::THRESHOLD_BYTES - 10, $details['free']);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details['total']);
         }
 
         private function createProperties($directory, $threshold)

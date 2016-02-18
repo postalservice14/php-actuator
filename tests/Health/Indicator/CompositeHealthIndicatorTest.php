@@ -34,6 +34,41 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
      */
     private $three;
 
+    protected function setUp()
+    {
+        $this->healthAggregator = new OrderedHealthAggregator();
+        $this->healthIndicator = new CompositeHealthIndicator($this->healthAggregator);
+
+        $this->one = $this->createMockHealthIndicator('one');
+        $this->two = $this->createMockHealthIndicator('two');
+        $this->three = $this->createMockHealthIndicator('three');
+    }
+
+    /**
+     * @param mixed $detail detail key and value
+     * @return HealthIndicatorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private function createMockHealthIndicator($detail)
+    {
+        $mock = $this->getMock('\Actuator\Health\Indicator\HealthIndicatorInterface');
+        $mock->expects($this->any())
+            ->method('health')
+            ->willReturn($this->createHealth($detail));
+
+        return $mock;
+    }
+
+    /**
+     * @param mixed $detail detail key and value
+     * @return Health
+     */
+    private function createHealth($detail)
+    {
+        return (new HealthBuilder())->unknown()
+            ->withDetail($detail, $detail)
+            ->build();
+    }
+
     /**
      * @test
      */
@@ -49,20 +84,8 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
         $details = $compositeIndicator->health()
             ->getDetails();
         $this->assertCount(2, (array)$details);
-        $this->assertEquals($this->createHealth(1), $details->one);
-        $this->assertEquals($this->createHealth(2), $details->two);
-    }
-
-
-    /**
-     * @param mixed $detail detail key and value
-     * @return Health
-     */
-    private function createHealth($detail)
-    {
-        return (new HealthBuilder())->unknown()
-            ->withDetail($detail, $detail)
-            ->build();
+        $this->assertEquals($this->createHealth('one'), $details['one']);
+        $this->assertEquals($this->createHealth('two'), $details['two']);
     }
 
     /**
@@ -82,9 +105,9 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
             ->getDetails();
 
         $this->assertCount(3, (array)$details);
-        $this->assertEquals($this->createHealth(1), $details->one);
-        $this->assertEquals($this->createHealth(2), $details->two);
-        $this->assertEquals($this->createHealth(3), $details->three);
+        $this->assertEquals($this->createHealth('one'), $details['one']);
+        $this->assertEquals($this->createHealth('two'), $details['two']);
+        $this->assertEquals($this->createHealth('three'), $details['three']);
     }
 
     /**
@@ -101,8 +124,8 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
             ->getDetails();
 
         $this->assertCount(2, (array)$details);
-        $this->assertEquals($this->createHealth(1), $details->one);
-        $this->assertEquals($this->createHealth(2), $details->two);
+        $this->assertEquals($this->createHealth('one'), $details['one']);
+        $this->assertEquals($this->createHealth('two'), $details['two']);
     }
 
     /**
@@ -128,11 +151,11 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
                 'status' => 'UNKNOWN',
                 'db1' => [
                     'status' => 'UNKNOWN',
-                    '1' => '1'
+                    'one' => 'one'
                 ],
                 'db2' => [
                     'status' => 'UNKNOWN',
-                    '2' => '2'
+                    'two' => 'two'
                 ]
             ]
 
@@ -154,7 +177,6 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator);
         $compositeIndicator->addHealthIndicator('db', $innerComposite);
 
-
         $health = $compositeIndicator->health();
 
         $expected = json_encode([
@@ -163,41 +185,15 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
                 'status' => 'UNKNOWN',
                 'db1' => [
                     'status' => 'UNKNOWN',
-                    '1' => '1'
+                    'one' => 'one'
                 ],
                 'db2' => [
                     'status' => 'UNKNOWN',
-                    '2' => '2'
+                    'two' => 'two'
                 ]
             ]
 
         ]);
-        $this->assertEquals($expected, json_encode($compositeIndicator));
+        $this->assertEquals($expected, json_encode($health));
     }
-
-        protected function setUp()
-    {
-        $this->healthAggregator = new OrderedHealthAggregator();
-        $this->healthIndicator = new CompositeHealthIndicator($this->healthAggregator);
-
-        $this->one = $this->createMockHealthIndicator('1');
-        $this->two = $this->createMockHealthIndicator('2');
-        $this->three = $this->createMockHealthIndicator('3');
-    }
-
-    /**
-     * @param mixed $detail detail key and value
-     * @return HealthIndicatorInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private function createMockHealthIndicator($detail)
-    {
-        $mock = $this->getMock('\Actuator\Health\Indicator\HealthIndicatorInterface');
-        $mock->expects($this->any())
-            ->method('health')
-            ->willReturn($this->createHealth($detail));
-
-        return $mock;
-    }
-
-
 }

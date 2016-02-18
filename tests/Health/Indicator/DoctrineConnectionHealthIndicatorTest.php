@@ -59,6 +59,6 @@ class DoctrineConnectionHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Status::DOWN, $health->getStatus());
 
         $details = $health->getDetails();
-        $this->assertEquals('Doctrine Error', $details->error);
+        $this->assertEquals('Doctrine Error', $details['error']);
     }
 }

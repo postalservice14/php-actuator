@@ -35,7 +35,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $health = $builder->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals((object)['a' => 'b'], $health->getDetails());
+        $this->assertEquals(['a' => 'b'], $health->getDetails());
     }
 
     /**
@@ -59,7 +59,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $health = (new HealthBuilder(new Status(Status::UP), ['a' => 'b']))->withException($exception)
             ->build();
 
-        $this->assertEquals((object)['a' => 'b', 'error' => 'Test Exception'], $health->getDetails());
+        $this->assertEquals(['a' => 'b', 'error' => 'Test Exception'], $health->getDetails());
     }
 
     /**
@@ -70,7 +70,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $health = (new HealthBuilder(new Status(Status::UP), ['a' => 'b']))->withDetail('c', 'd')
             ->build();
 
-        $this->assertEquals((object)['a' => 'b', 'c' => 'd'], $health->getDetails());
+        $this->assertEquals(['a' => 'b', 'c' => 'd'], $health->getDetails());
     }
 
     /**
@@ -82,7 +82,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->withDetail('a', 'b')
             ->build();
         $this->assertEquals(Status::UNKNOWN, $health->getStatus());
-        $this->assertEquals((object)['a' => 'b'], $health->getDetails());
+        $this->assertEquals(['a' => 'b'], $health->getDetails());
     }
 
     /**
@@ -94,7 +94,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::UNKNOWN, $health->getStatus());
-        $this->assertEquals((object)[], $health->getDetails());
+        $this->assertEquals([], $health->getDetails());
     }
 
     /**
@@ -107,7 +107,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals((object)['a' => 'b'], $health->getDetails());
+        $this->assertEquals(['a' => 'b'], $health->getDetails());
     }
 
     /**
@@ -120,7 +120,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals((object)[], $health->getDetails());
+        $this->assertEquals([], $health->getDetails());
     }
 
     /**
@@ -132,7 +132,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals((object)['error' => 'Exception Message'], $health->getDetails());
+        $this->assertEquals(['error' => 'Exception Message'], $health->getDetails());
     }
 
     /**
@@ -144,7 +144,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals((object)[], $health->getDetails());
+        $this->assertEquals([], $health->getDetails());
     }
 
     /**
@@ -156,7 +156,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::OUT_OF_SERVICE, $health->getStatus());
-        $this->assertEquals((object)[], $health->getDetails());
+        $this->assertEquals([], $health->getDetails());
     }
 
     /**
@@ -168,6 +168,6 @@ class HealthTest extends \PHPUnit_Framework_TestCase
             ->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals((object)[], $health->getDetails());
+        $this->assertEquals([], $health->getDetails());
     }
 }
