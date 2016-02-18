@@ -17,67 +17,9 @@ Via Composer
 $ composer require postalservice14/php-actuator
 ```
 
-## Parameters
+## Providers
 
-* **health.indicators**: An array of indicators to be used. Key as indicator name, value as indicator object.
-* **health.endpoint**: Endpoint for health checks.  Defaults to "/health".
-
-## Registering
-
-```php
-$app->register(new Actuator\Provider\HealthServiceProvider(), array(
-    "health.indicators" => array(
-        new DiskSpaceHealthIndicator()
-    )
-));
-```
-
-## Usage
-
-The following route is made available by default (unless you changed the "health.endpoint"):
-
-* `GET /health`: Get health indicator statuses
-
-## Getting Started
-
-The following is a minimal example to get you started quickly.  It uses the 
-[DiskSpaceHealthIndicator](src/Health/Indicator/DiskSpaceHealthIndicator.php).
-
-* Create a composer.json with at minimum, the following dependecies
-
-```json
-{
-    "require": {
-        "postalservice/php-actuator": "^1.0"
-    }
-}
-```
-
-* Run composer install
-* Create /public/index.php
-
-```php
-require_once __DIR__.'/../vendor/autoload.php';
-
-use Silex\Application;
-use Actuator\Health\Indicator\DiskSpaceHealthIndicator;
-use Actuator\Health\Indicator\DoctrineConnectionHealthIndicator;
-use Doctrine\DBAL\DriverManager;
-
-$app = new Application();
-$app['debug'] = true;
-
-$app->register(new Actuator\Provider\HealthServiceProvider(), array(
-    "health.indicators" => array(
-        'diskspace' => new DiskSpaceHealthIndicator()
-    )
-));
-
-$app->run();
-```
-
-* Run the service `php -S localhost:8000 -t public public/index.php`
-* Go to http://localhost:8000/health to see your health indicator.
+* [Silex](http://github.com/postalservice14/php-actuator-silex-provider)
 
 ## Change log
 
