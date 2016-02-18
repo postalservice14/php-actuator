@@ -1,5 +1,5 @@
 <?php
-namespace Actuator\Test\Health\Indicator;
+namespace Actuator\test\Health\Indicator;
 
 use Actuator\Health\Health;
 use Actuator\Health\HealthBuilder;
@@ -7,7 +7,7 @@ use Actuator\Health\Indicator\CompositeHealthIndicator;
 use Actuator\Health\Indicator\HealthIndicatorInterface;
 use Actuator\Health\OrderedHealthAggregator;
 
-class CompositeHealthIndicatorTest extends \PHPUnit_Framework_TestCase
+class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
 {
     /**
      * @var CompositeHealthIndicator
@@ -34,7 +34,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_TestCase
      */
     private $three;
 
-    public function testCreateWithIndicators()
+    /**
+     * @test
+     */
+    public function createWithIndicators()
     {
         $indicators = [
             'one' => $this->one,
@@ -62,7 +65,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_TestCase
             ->build();
     }
 
-    public function testCreateWithIndicatorsAndAdd()
+    /**
+     * @test
+     */
+    public function createWithIndicatorsAndAdd()
     {
         $indicators = [
             'one' => $this->one,
@@ -81,7 +87,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->createHealth(3), $details->three);
     }
 
-    public function testCreateWithoutAndAdd()
+    /**
+     * @test
+     */
+    public function createWithoutAndAdd()
     {
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator);
 
@@ -96,7 +105,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->createHealth(2), $details->two);
     }
 
-    public function testSerialization()
+    /**
+     * @test
+     */
+    public function serialization()
     {
         $indicators = [
             'db1' => $this->one,
@@ -128,7 +140,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, json_encode($health));
     }
 
-    public function testSerializationOfIndicator()
+    /**
+     * @test
+     */
+    public function serializationOfIndicator()
     {
         $indicators = [
             'db1' => $this->one,

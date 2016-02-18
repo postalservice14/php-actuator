@@ -6,13 +6,19 @@ use Actuator\Health\Status;
 
 class HealthTest extends \PHPUnit_Framework_TestCase
 {
-    public function testStatusDefaultsToUnknown()
+    /**
+     * @test
+     */
+    public function statusDefaultsToUnknown()
     {
         $builder = new HealthBuilder(null, null);
         $this->assertEquals(Status::UNKNOWN, $builder->build()->getStatus());
     }
 
-    public function testCreateWithStatus()
+    /**
+     * @test
+     */
+    public function createWithStatus()
     {
         $builder = new HealthBuilder(new Status(Status::UP), []);
         $health = $builder->build();
@@ -20,7 +26,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, (array)$health->getDetails());
     }
 
-    public function testCreateWithDetails()
+    /**
+     * @test
+     */
+    public function createWithDetails()
     {
         $builder = new HealthBuilder(new Status(Status::UP), ['a' => 'b']);
         $health = $builder->build();
@@ -29,7 +38,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)['a' => 'b'], $health->getDetails());
     }
 
-    public function testEquals()
+    /**
+     * @test
+     */
+    public function equals()
     {
         $health1 = new HealthBuilder(new Status('UP'), ['a' => 'b']);
         $health2 = new HealthBuilder(new Status('UP'), ['a' => 'b']);
@@ -37,7 +49,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($health1, $health2);
     }
 
-    public function testWithException()
+    /**
+     * @test
+     */
+    public function withException()
     {
         $exception = new \Exception('Test Exception');
 
@@ -47,7 +62,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)['a' => 'b', 'error' => 'Test Exception'], $health->getDetails());
     }
 
-    public function testWithDetails()
+    /**
+     * @test
+     */
+    public function withDetails()
     {
         $health = (new HealthBuilder(new Status(Status::UP), ['a' => 'b']))->withDetail('c', 'd')
             ->build();
@@ -55,7 +73,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)['a' => 'b', 'c' => 'd'], $health->getDetails());
     }
 
-    public function testWithUnknownDetails()
+    /**
+     * @test
+     */
+    public function withUnknownDetails()
     {
         $health = (new HealthBuilder())->unknown()
             ->withDetail('a', 'b')
@@ -64,7 +85,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)['a' => 'b'], $health->getDetails());
     }
 
-    public function testUnknown()
+    /**
+     * @test
+     */
+    public function unknown()
     {
         $health = (new HealthBuilder())->unknown()
             ->build();
@@ -73,7 +97,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)[], $health->getDetails());
     }
 
-    public function testUpWithDetails()
+    /**
+     * @test
+     */
+    public function upWithDetails()
     {
         $health = (new HealthBuilder())->up()
             ->withDetail('a', 'b')
@@ -83,7 +110,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)['a' => 'b'], $health->getDetails());
     }
 
-    public function testUp()
+    /**
+     * @test
+     */
+    public function up()
     {
         $health = (new HealthBuilder())
             ->up()
@@ -93,7 +123,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)[], $health->getDetails());
     }
 
-    public function testDownWithException()
+    /**
+     * @test
+     */
+    public function downWithException()
     {
         $health = (new HealthBuilder())->down(new \Exception('Exception Message'))
             ->build();
@@ -102,7 +135,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)['error' => 'Exception Message'], $health->getDetails());
     }
 
-    public function testDown()
+    /**
+     * @test
+     */
+    public function down()
     {
         $health = (new HealthBuilder())->down()
             ->build();
@@ -111,7 +147,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)[], $health->getDetails());
     }
 
-    public function testOutOfService()
+    /**
+     * @test
+     */
+    public function outOfService()
     {
         $health = (new HealthBuilder())->outOfService()
             ->build();
@@ -120,7 +159,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)[], $health->getDetails());
     }
 
-    public function testStatus()
+    /**
+     * @test
+     */
+    public function status()
     {
         $health = (new HealthBuilder())->status(Status::UP)
             ->build();
@@ -128,6 +170,4 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Status::UP, $health->getStatus());
         $this->assertEquals((object)[], $health->getDetails());
     }
-
-
 }

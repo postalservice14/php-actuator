@@ -64,6 +64,21 @@ namespace Actuator\Test\Health\Indicator {
         }
 
         /** @test */
+        public function diskSpaceIsUpWithoutProperties()
+        {
+            static::$mockDiskFreeSpace = static::THRESHOLD_BYTES + 10;
+            static::$mockDiskTotalSpace = static::THRESHOLD_BYTES + 10;
+            $healthIndicator = new DiskSpaceHealthIndicator();
+
+            $health = $healthIndicator->health();
+            $this->assertEquals(Status::DOWN, $health->getStatus()->getCode());
+            $details = $health->getDetails();
+            $this->assertNotEquals(static::THRESHOLD_BYTES, $details->threshold);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->free);
+            $this->assertEquals(static::THRESHOLD_BYTES + 10, $details->total);
+        }
+
+        /** @test */
         public function diskSpaceIsUp()
         {
             static::$mockDiskFreeSpace = static::THRESHOLD_BYTES + 10;
