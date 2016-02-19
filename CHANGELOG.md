@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## [Unreleased]
 
+## 1.0.1
+
+### Changes
+- Increase code-coverage.
+- Minor refactoring.
+
 ## 1.0.0
 
 ### Added
