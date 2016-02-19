@@ -114,7 +114,7 @@ class HealthBuilder
      * Record detail using key and message.
      *
      * @param string $key the detail key
-     * @param string $message the detail message
+     * @param mixed $message the detail message
      * @return $this
      */
     public function withDetail($key, $message)
