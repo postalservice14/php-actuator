@@ -32,7 +32,7 @@ class BaseMemcacheHealthIndicator extends AbstractHealthIndicator
             return;
         }
 
-        if ((is_bool($version) && $version === FALSE) ||
+        if ((is_bool($version) && $version === false) ||
             ((is_array($version) && count($version) === 0))
         ) {
             $builder->down();
