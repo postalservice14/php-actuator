@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## [Unreleased]
 
+### Added
+- AMQPConnectionHealthIndicator added.
+
 ## 1.0.1
 
 ### Changes
