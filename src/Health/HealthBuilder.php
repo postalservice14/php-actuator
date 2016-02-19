@@ -106,7 +106,6 @@ class HealthBuilder
      */
     public function withException(\Exception $exception)
     {
-        assert(!is_null($exception), 'Exception must not be null');
         return $this->withDetail('error', $exception->getMessage());
     }
 
@@ -119,8 +118,8 @@ class HealthBuilder
      */
     public function withDetail($key, $message)
     {
-        assert(!is_null($key), 'Key must not be null');
-        assert(!is_null($message), 'Message must not be null');
+        assert(!is_null($key));
+        assert(!is_null($message));
         $this->details[strval($key)] = $message;
         return $this;
     }

@@ -16,8 +16,6 @@ class MemcacheHealthIndicator extends BaseMemcacheHealthIndicator
      */
     public function __construct(\Memcache $memcache)
     {
-        assert(!is_null($memcache), 'Memcache must not be null');
-
         $this->memcacheInstance = $memcache;
     }
 }

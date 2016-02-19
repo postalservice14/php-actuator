@@ -47,7 +47,7 @@ class Status
      */
     public function __construct($code, $description = '')
     {
-        assert(!is_null($code), 'Code must not be null');
+        assert(!is_null($code));
 
         $this->code = $code;
         $this->description = $description;

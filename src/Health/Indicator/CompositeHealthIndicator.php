@@ -30,8 +30,6 @@ class CompositeHealthIndicator implements HealthIndicatorInterface
      */
     public function __construct(HealthAggregatorInterface $healthAggregator, array $indicators = array())
     {
-        assert(!is_null($healthAggregator), 'HealthAggregator must not be null');
-
         $this->indicators = $indicators;
         $this->healthAggregator = $healthAggregator;
     }

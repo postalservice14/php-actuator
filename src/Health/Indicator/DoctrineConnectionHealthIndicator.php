@@ -25,8 +25,6 @@ class DoctrineConnectionHealthIndicator extends AbstractHealthIndicator
      */
     public function __construct(Connection $connection)
     {
-        assert(!is_null($connection), 'Connection must not be null');
-
         $this->connection = $connection;
     }
 

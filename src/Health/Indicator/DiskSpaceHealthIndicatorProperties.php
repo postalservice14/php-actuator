@@ -46,8 +46,8 @@ class DiskSpaceHealthIndicatorProperties
      */
     public function setDirectory($directory)
     {
-        assert(is_dir($directory), 'Path ' . $directory . ' is not a directory');
-        assert(is_readable($directory), 'Path ' . $directory . ' cannot be read');
+        assert(is_dir($directory));
+        assert(is_readable($directory));
         $this->directory = $directory;
     }
 
@@ -64,7 +64,7 @@ class DiskSpaceHealthIndicatorProperties
      */
     public function setThreshold($threshold)
     {
-        assert(intval($threshold) > 0, 'Threshold must be greater than 0');
+        assert(intval($threshold) > 0);
         $this->threshold = $threshold;
     }
 }

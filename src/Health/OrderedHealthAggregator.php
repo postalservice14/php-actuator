@@ -71,7 +71,7 @@ class OrderedHealthAggregator extends AbstractHealthAggregator
      */
     public function setStatusOrder($statusOrder)
     {
-        assert(!is_null($statusOrder), 'StatusOrder must not be null');
+        assert(!is_null($statusOrder));
         $this->statusOrder = $statusOrder;
     }
 }
