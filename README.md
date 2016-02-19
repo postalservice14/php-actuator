@@ -20,6 +20,7 @@ $ composer require postalservice14/php-actuator
 ## Providers
 
 * [Silex](http://github.com/postalservice14/php-actuator-silex-provider)
+* [Slim Framework](https://github.com/postalservice14/php-actuator-slim-provider)
 
 ## Change log
 
