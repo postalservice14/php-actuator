@@ -59,12 +59,13 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
     }
 
     /**
-     * @param mixed $detail detail key and value
+     * @param string $detail detail key and value
      * @return Health
      */
     private function createHealth($detail)
     {
-        return (new HealthBuilder())->unknown()
+        $healthBuilder = new HealthBuilder();
+        return $healthBuilder->unknown()
             ->withDetail($detail, $detail)
             ->build();
     }
@@ -74,10 +75,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
      */
     public function createWithIndicators()
     {
-        $indicators = [
+        $indicators = array(
             'one' => $this->one,
             'two' => $this->two
-        ];
+        );
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
@@ -93,10 +94,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
      */
     public function createWithIndicatorsAndAdd()
     {
-        $indicators = [
+        $indicators = array(
             'one' => $this->one,
             'two' => $this->two
-        ];
+        );
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
@@ -123,7 +124,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
         $details = $compositeIndicator->health()
             ->getDetails();
 
-        $this->assertCount(2, (array)$details);
+        $this->assertCount(2, $details);
         $this->assertEquals($this->createHealth('one'), $details['one']);
         $this->assertEquals($this->createHealth('two'), $details['two']);
     }
@@ -133,10 +134,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
      */
     public function serialization()
     {
-        $indicators = [
+        $indicators = array(
             'db1' => $this->one,
             'db2' => $this->two
-        ];
+        );
         $innerComposite = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator);
@@ -145,21 +146,20 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
 
         $health = $compositeIndicator->health();
 
-        $expected = json_encode([
+        $expected = json_encode(array(
             'status' => 'UNKNOWN',
-            'db' => [
+            'db' => array(
                 'status' => 'UNKNOWN',
-                'db1' => [
+                'db1' => array(
                     'status' => 'UNKNOWN',
                     'one' => 'one'
-                ],
-                'db2' => [
+                ),
+                'db2' => array(
                     'status' => 'UNKNOWN',
                     'two' => 'two'
-                ]
-            ]
-
-        ]);
+                )
+            )
+        ));
         $this->assertEquals($expected, json_encode($health));
     }
 
@@ -168,10 +168,10 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
      */
     public function serializationOfIndicator()
     {
-        $indicators = [
+        $indicators = array(
             'db1' => $this->one,
             'db2' => $this->two
-        ];
+        );
         $innerComposite = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator);
@@ -179,21 +179,20 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
 
         $health = $compositeIndicator->health();
 
-        $expected = json_encode([
+        $expected = json_encode(array(
             'status' => 'UNKNOWN',
-            'db' => [
+            'db' => array(
                 'status' => 'UNKNOWN',
-                'db1' => [
+                'db1' => array(
                     'status' => 'UNKNOWN',
                     'one' => 'one'
-                ],
-                'db2' => [
+                ),
+                'db2' => array(
                     'status' => 'UNKNOWN',
                     'two' => 'two'
-                ]
-            ]
-
-        ]);
+                )
+            )
+        ));
         $this->assertEquals($expected, json_encode($health));
     }
 }

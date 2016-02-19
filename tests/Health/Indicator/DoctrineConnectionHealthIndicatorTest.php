@@ -22,7 +22,7 @@ class DoctrineConnectionHealthIndicatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->connection = $this->getMockBuilder('\Doctrine\DBAL\Connection')
             ->disableOriginalConstructor()
-            ->setMethods(['query'])
+            ->setMethods(array('query'))
             ->getMock();
 
         $this->healthIndicator = new DoctrineConnectionHealthIndicator($this->connection);

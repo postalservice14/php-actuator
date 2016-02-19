@@ -2,12 +2,13 @@
 
 namespace Actuator\Test\Health\Indicator;
 
+use Actuator\Health\Indicator\HealthIndicatorInterface;
 use Actuator\Health\Status;
 
 class AbstractHealthIndicatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var HealthIndicatorInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $indicator;
 

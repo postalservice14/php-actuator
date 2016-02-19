@@ -3,7 +3,7 @@
 namespace Actuator\Health;
 
 /**
- * Builder for creating imutable Health instances.
+ * Builder for creating immutable Health instances.
  *
  * @package Actuator\Health
  */

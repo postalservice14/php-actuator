@@ -24,7 +24,8 @@ class MemcacheHealthIndicatorTest extends \PHPUnit_Framework_TestCase
             ->willReturn('1.4.4');
         $health = $this->healthIndicator->health();
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals('1.4.4', $health->getDetails()['version']);
+        $details = $health->getDetails();
+        $this->assertEquals('1.4.4', $details['version']);
     }
 
     public function testMemcacheIsDown()
@@ -35,7 +36,7 @@ class MemcacheHealthIndicatorTest extends \PHPUnit_Framework_TestCase
             ->willReturn(false);
         $health = $this->healthIndicator->health();
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals([], (array)$health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 
     public function testMemcacheIsDownWithException()
@@ -53,7 +54,7 @@ class MemcacheHealthIndicatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->memcache = $this->getMock('\Memcache', ['getversion']);
+        $this->memcache = $this->getMock('\Memcache', array('getversion'));
         $this->healthIndicator = new MemcacheHealthIndicator($this->memcache);
     }
 }

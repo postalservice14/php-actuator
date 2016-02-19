@@ -27,7 +27,8 @@ class MemcachedHealthIndicatorTest extends \PHPUnit_Framework_TestCase
             ->willReturn(array('1.4.4'));
         $health = $this->healthIndicator->health();
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals(array('1.4.4'), $health->getDetails()['version']);
+        $details = $health->getDetails();
+        $this->assertEquals(array('1.4.4'), $details['version']);
     }
 
     /**
@@ -38,10 +39,10 @@ class MemcachedHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->memcached
             ->expects($this->once())
             ->method('getversion')
-            ->willReturn([]);
+            ->willReturn(array());
         $health = $this->healthIndicator->health();
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals([], $health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 
     /**
@@ -62,7 +63,7 @@ class MemcachedHealthIndicatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->memcached = $this->getMock('\Memcached', ['getversion']);
+        $this->memcached = $this->getMock('\Memcached', array('getversion'));
         $this->healthIndicator = new MemcachedHealthIndicator($this->memcached);
     }
 

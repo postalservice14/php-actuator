@@ -20,10 +20,10 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function createWithStatus()
     {
-        $builder = new HealthBuilder(new Status(Status::UP), []);
+        $builder = new HealthBuilder(new Status(Status::UP), array());
         $health = $builder->build();
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertCount(0, (array)$health->getDetails());
+        $this->assertCount(0, $health->getDetails());
     }
 
     /**
@@ -31,11 +31,11 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function createWithDetails()
     {
-        $builder = new HealthBuilder(new Status(Status::UP), ['a' => 'b']);
+        $builder = new HealthBuilder(new Status(Status::UP), array('a' => 'b'));
         $health = $builder->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals(['a' => 'b'], $health->getDetails());
+        $this->assertEquals(array('a' => 'b'), $health->getDetails());
     }
 
     /**
@@ -43,8 +43,8 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function equals()
     {
-        $health1 = new HealthBuilder(new Status('UP'), ['a' => 'b']);
-        $health2 = new HealthBuilder(new Status('UP'), ['a' => 'b']);
+        $health1 = new HealthBuilder(new Status('UP'), array('a' => 'b'));
+        $health2 = new HealthBuilder(new Status('UP'), array('a' => 'b'));
 
         $this->assertEquals($health1, $health2);
     }
@@ -56,10 +56,11 @@ class HealthTest extends \PHPUnit_Framework_TestCase
     {
         $exception = new \Exception('Test Exception');
 
-        $health = (new HealthBuilder(new Status(Status::UP), ['a' => 'b']))->withException($exception)
+        $healthBuilder = new HealthBuilder(new Status(Status::UP), array('a' => 'b'));
+        $health = $healthBuilder->withException($exception)
             ->build();
 
-        $this->assertEquals(['a' => 'b', 'error' => 'Test Exception'], $health->getDetails());
+        $this->assertEquals(array('a' => 'b', 'error' => 'Test Exception'), $health->getDetails());
     }
 
     /**
@@ -67,10 +68,11 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function withDetails()
     {
-        $health = (new HealthBuilder(new Status(Status::UP), ['a' => 'b']))->withDetail('c', 'd')
+        $healthBuilder = new HealthBuilder(new Status(Status::UP), array('a' => 'b'));
+        $health = $healthBuilder->withDetail('c', 'd')
             ->build();
 
-        $this->assertEquals(['a' => 'b', 'c' => 'd'], $health->getDetails());
+        $this->assertEquals(array('a' => 'b', 'c' => 'd'), $health->getDetails());
     }
 
     /**
@@ -78,11 +80,12 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function withUnknownDetails()
     {
-        $health = (new HealthBuilder())->unknown()
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->unknown()
             ->withDetail('a', 'b')
             ->build();
         $this->assertEquals(Status::UNKNOWN, $health->getStatus());
-        $this->assertEquals(['a' => 'b'], $health->getDetails());
+        $this->assertEquals(array('a' => 'b'), $health->getDetails());
     }
 
     /**
@@ -90,11 +93,12 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function unknown()
     {
-        $health = (new HealthBuilder())->unknown()
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->unknown()
             ->build();
 
         $this->assertEquals(Status::UNKNOWN, $health->getStatus());
-        $this->assertEquals([], $health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 
     /**
@@ -102,12 +106,13 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function upWithDetails()
     {
-        $health = (new HealthBuilder())->up()
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->up()
             ->withDetail('a', 'b')
             ->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals(['a' => 'b'], $health->getDetails());
+        $this->assertEquals(array('a' => 'b'), $health->getDetails());
     }
 
     /**
@@ -115,12 +120,13 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function up()
     {
-        $health = (new HealthBuilder())
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder
             ->up()
             ->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals([], $health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 
     /**
@@ -128,11 +134,12 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function downWithException()
     {
-        $health = (new HealthBuilder())->down(new \Exception('Exception Message'))
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->down(new \Exception('Exception Message'))
             ->build();
 
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals(['error' => 'Exception Message'], $health->getDetails());
+        $this->assertEquals(array('error' => 'Exception Message'), $health->getDetails());
     }
 
     /**
@@ -140,11 +147,12 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function down()
     {
-        $health = (new HealthBuilder())->down()
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->down()
             ->build();
 
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals([], $health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 
     /**
@@ -152,11 +160,12 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function outOfService()
     {
-        $health = (new HealthBuilder())->outOfService()
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->outOfService()
             ->build();
 
         $this->assertEquals(Status::OUT_OF_SERVICE, $health->getStatus());
-        $this->assertEquals([], $health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 
     /**
@@ -164,10 +173,11 @@ class HealthTest extends \PHPUnit_Framework_TestCase
      */
     public function status()
     {
-        $health = (new HealthBuilder())->status(Status::UP)
+        $healthBuilder = new HealthBuilder();
+        $health = $healthBuilder->status(Status::UP)
             ->build();
 
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals([], $health->getDetails());
+        $this->assertEquals(array(), $health->getDetails());
     }
 }

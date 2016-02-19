@@ -55,7 +55,7 @@ final class Health implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $merged = array_merge(['status' => $this->status->getCode()], $this->getDetails());
+        $merged = array_merge(array('status' => $this->status->getCode()), $this->getDetails());
         return $merged;
     }
 }
