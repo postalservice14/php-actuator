@@ -27,6 +27,7 @@ class AbstractHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $health = $this->indicator->health();
 
         $this->assertEquals(new Status(Status::DOWN), $health->getStatus());
-        $this->assertEquals('Foo', $health->getDetails()['error']);
+        $details = $health->getDetails();
+        $this->assertEquals('Foo', $details['error']);
     }
 }
