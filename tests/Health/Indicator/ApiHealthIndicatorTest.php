@@ -49,6 +49,15 @@ class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param $code
+     * @return Response
+     */
+    private function getResponse($code)
+    {
+        return new Response($code);
+    }
+
+    /**
      * @test
      */
     public function healthFailure()
@@ -66,14 +75,5 @@ class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
 
         $details = $health->getDetails();
         $this->assertCount(1, $details);
-    }
-
-    /**
-     * @param $code
-     * @return Response
-     */
-    private function getResponse($code)
-    {
-        return new Response($code);
     }
 }
