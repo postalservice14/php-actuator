@@ -5,7 +5,7 @@ use Actuator\Health\HealthBuilder;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class ApiHealthIndicator extends AbstractHealthIndicator
+class GuzzleRequestHealthIndicator extends AbstractHealthIndicator
 {
     /**
      * @var Request
@@ -33,7 +33,8 @@ class ApiHealthIndicator extends AbstractHealthIndicator
         $builder->withDetail('statusCode', $response->getStatusCode());
 
         if (!$response->isSuccessful()) {
-            $builder->down();
+            $builder->down()
+                ->withDetail('body', $response->getBody(true));
             return;
         }
 

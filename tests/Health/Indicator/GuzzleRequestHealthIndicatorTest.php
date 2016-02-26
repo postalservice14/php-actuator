@@ -1,15 +1,15 @@
 <?php
 namespace Actuator\Test\Health\Indicator;
 
-use Actuator\Health\Indicator\ApiHealthIndicator;
+use Actuator\Health\Indicator\GuzzleRequestHealthIndicator;
 use Actuator\Health\Status;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
+class GuzzleRequestHealthIndicatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ApiHealthIndicator
+     * @var GuzzleRequestHealthIndicator
      */
     private $indicator;
 
@@ -24,7 +24,7 @@ class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['send', 'getStatusCode', 'isSuccessful'])
             ->getMock();
-        $this->indicator = new ApiHealthIndicator($this->request);
+        $this->indicator = new GuzzleRequestHealthIndicator($this->request);
     }
 
     /**
@@ -49,12 +49,13 @@ class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $code
+     * @param int $code Actual Response Code
+     * @param null $body
      * @return Response
      */
-    private function getResponse($code)
+    private function getResponse($code, $body = null)
     {
-        return new Response($code);
+        return new Response($code, null, $body);
     }
 
     /**
@@ -65,7 +66,7 @@ class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->request
             ->expects($this->once())
             ->method('send')
-            ->willReturn($this->getResponse(500));
+            ->willReturn($this->getResponse(500, 'Response Body'));
 
         $health = $this->indicator
             ->health();
@@ -74,6 +75,8 @@ class ApiHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Status::DOWN, $health->getStatus());
 
         $details = $health->getDetails();
-        $this->assertCount(1, $details);
+        $this->assertCount(2, $details);
+        $this->assertEquals(500, $details['statusCode']);
+        $this->assertEquals('Response Body', $details['body']);
     }
 }
