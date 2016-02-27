@@ -31,7 +31,7 @@
     "suggest": {
         "doctrine/dbal": "Used with DoctrineConnectionHealthIndicator",
         "php-amqplib/php-amqplib": "Used with AMQPConnectionHealthIndicator",
-        "guzzle/guzzle": "Used with ApiHealthIndicator"
+        "guzzle/guzzle": "Used with GuzzleRequestHealthIndicator"
     },
     "autoload": {
         "psr-4": {
