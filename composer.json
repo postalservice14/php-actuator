@@ -25,11 +25,13 @@
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3",
         "doctrine/dbal": "^2.5",
-        "php-amqplib/php-amqplib": "dev-master"
+        "php-amqplib/php-amqplib": "dev-master",
+        "guzzle/guzzle": "~3.9"
     },
     "suggest": {
         "doctrine/dbal": "Used with DoctrineConnectionHealthIndicator",
-        "php-amqplib/php-amqplib": "Used with AMQPConnectionHealthIndicator"
+        "php-amqplib/php-amqplib": "Used with AMQPConnectionHealthIndicator",
+        "guzzle/guzzle": "Used with GuzzleRequestHealthIndicator"
     },
     "autoload": {
         "psr-4": {
