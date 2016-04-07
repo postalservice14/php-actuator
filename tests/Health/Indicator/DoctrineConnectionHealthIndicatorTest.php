@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\Test\Health\Indicator;
 
 use Actuator\Health\Indicator\DoctrineConnectionHealthIndicator;

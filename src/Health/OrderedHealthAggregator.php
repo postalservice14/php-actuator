@@ -5,8 +5,6 @@ namespace Actuator\Health;
 /**
  * Default HealthAggregator implementation that aggregates Health
  * instances and determines the final system state based on a simple ordered list.
- *
- * @package Actuator\Health
  */
 class OrderedHealthAggregator extends AbstractHealthAggregator
 {
@@ -21,17 +19,18 @@ class OrderedHealthAggregator extends AbstractHealthAggregator
     public function __construct()
     {
         $this->setStatusOrder(
-            array(Status::DOWN, Status::OUT_OF_SERVICE, Status::UP, Status::UNKNOWN)
+            [Status::DOWN, Status::OUT_OF_SERVICE, Status::UP, Status::UNKNOWN]
         );
     }
 
     /**
      * @param Status[] $candidates
+     *
      * @return Status
      */
     protected function aggregateStatus($candidates)
     {
-        $filteredCandidates = array();
+        $filteredCandidates = [];
         foreach ($candidates as $candidate) {
             if (array_search($candidate->getCode(), $this->statusOrder) !== false) {
                 $filteredCandidates[] = $candidate;
@@ -42,7 +41,7 @@ class OrderedHealthAggregator extends AbstractHealthAggregator
             return new Status(Status::UNKNOWN);
         }
 
-        usort($filteredCandidates, array($this, 'statusComparator'));
+        usort($filteredCandidates, [$this, 'statusComparator']);
 
         return $filteredCandidates[0];
     }
@@ -52,6 +51,7 @@ class OrderedHealthAggregator extends AbstractHealthAggregator
      *
      * @param Status $s1
      * @param Status $s2
+     *
      * @return int
      */
     private function statusComparator($s1, $s2)

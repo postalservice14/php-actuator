@@ -8,8 +8,6 @@ use PhpAmqpLib\Connection\AbstractConnection;
 /**
  * Simple implementation of a HealthIndicator returning status information for
  * an AMQP Connection.
- *
- * @package Actuator\Health\Indicator
  */
 class AMQPConnectionHealthIndicator extends AbstractHealthIndicator
 {
@@ -20,6 +18,7 @@ class AMQPConnectionHealthIndicator extends AbstractHealthIndicator
 
     /**
      * MemcacheHealthIndicator constructor.
+     *
      * @param AbstractConnection $connection
      */
     public function __construct(AbstractConnection $connection)
@@ -31,8 +30,9 @@ class AMQPConnectionHealthIndicator extends AbstractHealthIndicator
      * Actual health check logic.
      *
      * @param HealthBuilder $builder
+     *
      * @throws \Exception any Exception that should create a Status::DOWN
-     * system status.
+     *                    system status.
      */
     protected function doHealthCheck(HealthBuilder $builder)
     {
@@ -42,6 +42,7 @@ class AMQPConnectionHealthIndicator extends AbstractHealthIndicator
             $builder->withDetail('version', $serverProperties['version'][1]);
         } catch (\Exception $e) {
             $builder->down($e);
+
             return;
         }
 

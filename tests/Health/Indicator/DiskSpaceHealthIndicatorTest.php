@@ -11,9 +11,11 @@ namespace Actuator\Health\Indicator {
      * Mock built-in PHP function.
      *
      * @param string $directory
+     *
      * @return int
      */
-    function disk_free_space($directory) {
+    function disk_free_space($directory)
+    {
         return DiskSpaceHealthIndicatorTest::$mockDiskFreeSpace;
     }
 
@@ -22,7 +24,8 @@ namespace Actuator\Health\Indicator {
      *
      * @return int
      */
-    function disk_total_space() {
+    function disk_total_space()
+    {
         return DiskSpaceHealthIndicatorTest::$mockDiskTotalSpace;
     }
 }

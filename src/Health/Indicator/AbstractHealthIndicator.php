@@ -7,8 +7,6 @@ use Actuator\Health\HealthBuilder;
 /**
  * Base HealthIndicator implementations that encapsulates creation of
  * Health instance and error handling.
- *
- * @package Actuator\Health\Indicator
  */
 abstract class AbstractHealthIndicator implements HealthIndicatorInterface
 {
@@ -28,8 +26,9 @@ abstract class AbstractHealthIndicator implements HealthIndicatorInterface
      * Actual health check logic.
      *
      * @param HealthBuilder $builder
+     *
      * @throws \Exception any Exception that should create a Status::DOWN
-     * system status.
+     *                    system status.
      */
     abstract protected function doHealthCheck(HealthBuilder $builder);
 }

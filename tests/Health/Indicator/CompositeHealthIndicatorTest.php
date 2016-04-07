@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\test\Health\Indicator;
 
 use Actuator\Health\Health;
@@ -46,6 +47,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
 
     /**
      * @param mixed $detail detail key and value
+     *
      * @return HealthIndicatorInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private function createMockHealthIndicator($detail)
@@ -60,6 +62,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
 
     /**
      * @param mixed $detail detail key and value
+     *
      * @return Health
      */
     private function createHealth($detail)
@@ -76,14 +79,14 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
     {
         $indicators = [
             'one' => $this->one,
-            'two' => $this->two
+            'two' => $this->two,
         ];
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
         $details = $compositeIndicator->health()
             ->getDetails();
-        $this->assertCount(2, (array)$details);
+        $this->assertCount(2, (array) $details);
         $this->assertEquals($this->createHealth('one'), $details['one']);
         $this->assertEquals($this->createHealth('two'), $details['two']);
     }
@@ -95,7 +98,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
     {
         $indicators = [
             'one' => $this->one,
-            'two' => $this->two
+            'two' => $this->two,
         ];
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator, $indicators);
@@ -104,7 +107,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
         $details = $compositeIndicator->health()
             ->getDetails();
 
-        $this->assertCount(3, (array)$details);
+        $this->assertCount(3, (array) $details);
         $this->assertEquals($this->createHealth('one'), $details['one']);
         $this->assertEquals($this->createHealth('two'), $details['two']);
         $this->assertEquals($this->createHealth('three'), $details['three']);
@@ -123,7 +126,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
         $details = $compositeIndicator->health()
             ->getDetails();
 
-        $this->assertCount(2, (array)$details);
+        $this->assertCount(2, (array) $details);
         $this->assertEquals($this->createHealth('one'), $details['one']);
         $this->assertEquals($this->createHealth('two'), $details['two']);
     }
@@ -135,29 +138,28 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
     {
         $indicators = [
             'db1' => $this->one,
-            'db2' => $this->two
+            'db2' => $this->two,
         ];
         $innerComposite = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
         $compositeIndicator = new CompositeHealthIndicator($this->healthAggregator);
         $compositeIndicator->addHealthIndicator('db', $innerComposite);
 
-
         $health = $compositeIndicator->health();
 
         $expected = json_encode([
             'status' => 'UNKNOWN',
-            'db' => [
+            'db'     => [
                 'status' => 'UNKNOWN',
-                'db1' => [
+                'db1'    => [
                     'status' => 'UNKNOWN',
-                    'one' => 'one'
+                    'one'    => 'one',
                 ],
                 'db2' => [
                     'status' => 'UNKNOWN',
-                    'two' => 'two'
-                ]
-            ]
+                    'two'    => 'two',
+                ],
+            ],
 
         ]);
         $this->assertEquals($expected, json_encode($health));
@@ -170,7 +172,7 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
     {
         $indicators = [
             'db1' => $this->one,
-            'db2' => $this->two
+            'db2' => $this->two,
         ];
         $innerComposite = new CompositeHealthIndicator($this->healthAggregator, $indicators);
 
@@ -181,17 +183,17 @@ class CompositeHealthIndicatorTest extends \PHPUnit_Framework_testCase
 
         $expected = json_encode([
             'status' => 'UNKNOWN',
-            'db' => [
+            'db'     => [
                 'status' => 'UNKNOWN',
-                'db1' => [
+                'db1'    => [
                     'status' => 'UNKNOWN',
-                    'one' => 'one'
+                    'one'    => 'one',
                 ],
                 'db2' => [
                     'status' => 'UNKNOWN',
-                    'two' => 'two'
-                ]
-            ]
+                    'two'    => 'two',
+                ],
+            ],
 
         ]);
         $this->assertEquals($expected, json_encode($health));

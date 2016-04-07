@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\Test\Health\Indicator;
 
 use Actuator\Health\Indicator\MemcacheHealthIndicator;
@@ -35,7 +36,7 @@ class MemcacheHealthIndicatorTest extends \PHPUnit_Framework_TestCase
             ->willReturn(false);
         $health = $this->healthIndicator->health();
         $this->assertEquals(Status::DOWN, $health->getStatus());
-        $this->assertEquals([], (array)$health->getDetails());
+        $this->assertEquals([], (array) $health->getDetails());
     }
 
     public function testMemcacheIsDownWithException()

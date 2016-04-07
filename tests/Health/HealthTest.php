@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\Test\Health;
 
 use Actuator\Health\HealthBuilder;
@@ -23,7 +24,7 @@ class HealthTest extends \PHPUnit_Framework_TestCase
         $builder = new HealthBuilder(new Status(Status::UP), []);
         $health = $builder->build();
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertCount(0, (array)$health->getDetails());
+        $this->assertCount(0, (array) $health->getDetails());
     }
 
     /**

@@ -4,8 +4,6 @@ namespace Actuator\Health;
 
 /**
  * Builder for creating imutable Health instances.
- *
- * @package Actuator\Health
  */
 class HealthBuilder
 {
@@ -23,9 +21,9 @@ class HealthBuilder
      * Create new Builder instance.
      *
      * @param Status $status
-     * @param array $details
+     * @param array  $details
      */
-    public function __construct(Status $status = null, $details = array())
+    public function __construct(Status $status = null, $details = [])
     {
         if (is_null($status)) {
             $status = new Status(Status::UNKNOWN);
@@ -39,6 +37,7 @@ class HealthBuilder
      * Set status to Status::DOWN and add details for given Exception if available.
      *
      * @param \Exception $exception The exception
+     *
      * @return HealthBuilder
      */
     public function down(\Exception $exception = null)
@@ -86,6 +85,7 @@ class HealthBuilder
      * Set status to given Status instance or status code.
      *
      * @param Status|string $status
+     *
      * @return $this
      */
     public function status($status)
@@ -95,6 +95,7 @@ class HealthBuilder
         }
 
         $this->status = $status;
+
         return $this;
     }
 
@@ -102,19 +103,22 @@ class HealthBuilder
      * Record detail for given {@link Exception}.
      *
      * @param \Exception $exception
+     *
      * @return $this
      */
     public function withException(\Exception $exception)
     {
         assert(!is_null($exception), 'Exception must not be null');
+
         return $this->withDetail('error', $exception->getMessage());
     }
 
     /**
      * Record detail using key and message.
      *
-     * @param string $key the detail key
-     * @param mixed $message the detail message
+     * @param string $key     the detail key
+     * @param mixed  $message the detail message
+     *
      * @return $this
      */
     public function withDetail($key, $message)
@@ -122,6 +126,7 @@ class HealthBuilder
         assert(!is_null($key), 'Key must not be null');
         assert(!is_null($message), 'Message must not be null');
         $this->details[strval($key)] = $message;
+
         return $this;
     }
 
