@@ -25,7 +25,7 @@
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3",
         "doctrine/dbal": "^2.5",
-        "php-amqplib/php-amqplib": "dev-master",
+        "php-amqplib/php-amqplib": "^2.6",
         "guzzle/guzzle": "~3.9"
     },
     "suggest": {
