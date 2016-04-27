@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\Test\Health\Indicator;
 
 use Actuator\Health\Indicator\GuzzleRequestHealthIndicator;
@@ -49,8 +50,9 @@ class GuzzleRequestHealthIndicatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param int $code Actual Response Code
+     * @param int  $code Actual Response Code
      * @param null $body
+     *
      * @return Response
      */
     private function getResponse($code, $body = null)

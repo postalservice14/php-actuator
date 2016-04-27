@@ -23,7 +23,7 @@ class OrderedHealthAggregatorTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new HealthBuilder();
 
-        $healths = array();
+        $healths = [];
         $healths['h1'] = $builder->status(new Status(Status::DOWN))->build();
         $healths['h2'] = $builder->status(new Status(Status::UP))->build();
         $healths['h3'] = $builder->status(new Status(Status::UNKNOWN))->build();
@@ -39,12 +39,12 @@ class OrderedHealthAggregatorTest extends \PHPUnit_Framework_TestCase
     public function customOrder()
     {
         $this->healthAggregator->setStatusOrder(
-            array(Status::UNKNOWN, Status::UP, Status::OUT_OF_SERVICE, Status::DOWN)
+            [Status::UNKNOWN, Status::UP, Status::OUT_OF_SERVICE, Status::DOWN]
         );
 
         $builder = new HealthBuilder();
 
-        $healths = array();
+        $healths = [];
         $healths['h1'] = $builder->status(new Status(Status::DOWN))->build();
         $healths['h2'] = $builder->status(new Status(Status::UP))->build();
         $healths['h3'] = $builder->status(new Status(Status::UNKNOWN))->build();
@@ -61,7 +61,7 @@ class OrderedHealthAggregatorTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new HealthBuilder();
 
-        $healths = array();
+        $healths = [];
         $healths['h1'] = $builder->status(new Status(Status::DOWN))->build();
         $healths['h2'] = $builder->status(new Status(Status::UP))->build();
         $healths['h3'] = $builder->status(new Status(Status::UNKNOWN))->build();
@@ -78,12 +78,12 @@ class OrderedHealthAggregatorTest extends \PHPUnit_Framework_TestCase
     public function customOrderWithCustomStatus()
     {
         $this->healthAggregator->setStatusOrder(
-            array(Status::DOWN, Status::OUT_OF_SERVICE, Status::UP, Status::UNKNOWN, 'CUSTOM')
+            [Status::DOWN, Status::OUT_OF_SERVICE, Status::UP, Status::UNKNOWN, 'CUSTOM']
         );
 
         $builder = new HealthBuilder();
 
-        $healths = array();
+        $healths = [];
         $healths['h1'] = $builder->status(new Status(Status::DOWN))->build();
         $healths['h2'] = $builder->status(new Status(Status::UP))->build();
         $healths['h3'] = $builder->status(new Status(Status::UNKNOWN))->build();
@@ -100,12 +100,12 @@ class OrderedHealthAggregatorTest extends \PHPUnit_Framework_TestCase
     public function noFilteredStatusResultsInUnknown()
     {
         $this->healthAggregator->setStatusOrder(
-            array('FOO')
+            ['FOO']
         );
 
         $builder = new HealthBuilder();
 
-        $healths = array();
+        $healths = [];
         $healths['h1'] = $builder->status(new Status(Status::DOWN))->build();
         $healths['h2'] = $builder->status(new Status(Status::UP))->build();
         $healths['h3'] = $builder->status(new Status(Status::UNKNOWN))->build();

@@ -4,8 +4,6 @@ namespace Actuator\Health;
 
 /**
  * Value object to express state of a component or subsystem.
- *
- * @package Actuator\Health
  */
 class Status
 {
