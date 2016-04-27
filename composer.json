@@ -18,15 +18,15 @@
         }
     ],
     "require": {
-        "php" : "~5.4|~7.0"
+        "php" : "^5.4|^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit" : "4.*",
-        "scrutinizer/ocular": "~1.1",
-        "squizlabs/php_codesniffer": "~2.3",
+        "phpunit/phpunit" : "^4.8",
+        "scrutinizer/ocular": "^1.2",
+        "squizlabs/php_codesniffer": "^2.3",
         "doctrine/dbal": "^2.5",
         "php-amqplib/php-amqplib": "^2.6",
-        "guzzle/guzzle": "~3.9"
+        "guzzle/guzzle": "^3.9"
     },
     "suggest": {
         "doctrine/dbal": "Used with DoctrineConnectionHealthIndicator",
