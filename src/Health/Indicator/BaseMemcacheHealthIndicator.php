@@ -5,9 +5,7 @@ namespace Actuator\Health\Indicator;
 use Actuator\Health\HealthBuilder;
 
 /**
- * Base class for memcache HealthIndicator
- *
- * @package Actuator\Health\Indicator
+ * Base class for memcache HealthIndicator.
  */
 class BaseMemcacheHealthIndicator extends AbstractHealthIndicator
 {
@@ -20,8 +18,9 @@ class BaseMemcacheHealthIndicator extends AbstractHealthIndicator
      * Actual health check logic.
      *
      * @param HealthBuilder $builder
+     *
      * @throws \Exception any Exception that should create a Status::DOWN
-     * system status.
+     *                    system status.
      */
     protected function doHealthCheck(HealthBuilder $builder)
     {
@@ -29,6 +28,7 @@ class BaseMemcacheHealthIndicator extends AbstractHealthIndicator
             $version = $this->memcacheInstance->getversion();
         } catch (\Exception $e) {
             $builder->down($e);
+
             return;
         }
 
@@ -36,6 +36,7 @@ class BaseMemcacheHealthIndicator extends AbstractHealthIndicator
             ((is_array($version) && count($version) === 0))
         ) {
             $builder->down();
+
             return;
         }
 

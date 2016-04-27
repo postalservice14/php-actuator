@@ -1,9 +1,9 @@
 <?php
+
 namespace Actuator\Test\Health\Indicator;
 
 use Actuator\Health\Indicator\AMQPConnectionHealthIndicator;
 use Actuator\Health\Status;
-use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
 
 class AMQPConnectionHealthIndicatorTest extends \PHPUnit_Framework_TestCase
@@ -13,12 +13,12 @@ class AMQPConnectionHealthIndicatorTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getMockBuilder('\\PhpAmqpLib\\Connection\\AbstractConnection')
             ->disableOriginalConstructor()
-            ->setMethods(array('reconnect', 'getServerProperties'))
+            ->setMethods(['reconnect', 'getServerProperties'])
             ->getMockForAbstractClass();
 
         $connection->expects($this->once())
             ->method('getServerProperties')
-            ->willReturn(array('version' => array('S', '3.3.0')));
+            ->willReturn(['version' => ['S', '3.3.0']]);
 
         $indicator = new AMQPConnectionHealthIndicator($connection);
 

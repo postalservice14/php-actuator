@@ -7,8 +7,6 @@ use Actuator\Health\HealthBuilder;
 /**
  * A HealthIndicator that checks available disk space and reports a status of
  * Status::DOWN when it drops below a configurable threshold.
- *
- * @package Actuator\Health\Indicator
  */
 class DiskSpaceHealthIndicator extends AbstractHealthIndicator
 {
@@ -35,8 +33,9 @@ class DiskSpaceHealthIndicator extends AbstractHealthIndicator
      * Actual health check logic.
      *
      * @param HealthBuilder $builder
+     *
      * @throws \Exception any Exception that should create a Status::DOWN
-     * system status.
+     *                    system status.
      */
     protected function doHealthCheck(HealthBuilder $builder)
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\Test\Health\Indicator;
 
 use Actuator\Health\Indicator\MemcachedHealthIndicator;
@@ -24,10 +25,10 @@ class MemcachedHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->memcached
             ->expects($this->once())
             ->method('getversion')
-            ->willReturn(array('1.4.4'));
+            ->willReturn(['1.4.4']);
         $health = $this->healthIndicator->health();
         $this->assertEquals(Status::UP, $health->getStatus());
-        $this->assertEquals(array('1.4.4'), $health->getDetails()['version']);
+        $this->assertEquals(['1.4.4'], $health->getDetails()['version']);
     }
 
     /**
@@ -65,6 +66,4 @@ class MemcachedHealthIndicatorTest extends \PHPUnit_Framework_TestCase
         $this->memcached = $this->getMock('\Memcached', ['getversion']);
         $this->healthIndicator = new MemcachedHealthIndicator($this->memcached);
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Actuator\Health\Indicator;
 
 use Actuator\Health\HealthBuilder;
@@ -21,8 +22,9 @@ class GuzzleRequestHealthIndicator extends AbstractHealthIndicator
      * Actual health check logic.
      *
      * @param HealthBuilder $builder
+     *
      * @throws \Exception any Exception that should create a Status::DOWN
-     * system status.
+     *                    system status.
      */
     protected function doHealthCheck(HealthBuilder $builder)
     {
@@ -35,6 +37,7 @@ class GuzzleRequestHealthIndicator extends AbstractHealthIndicator
         if (!$response->isSuccessful()) {
             $builder->down()
                 ->withDetail('body', $response->getBody(true));
+
             return;
         }
 

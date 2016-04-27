@@ -7,8 +7,6 @@ use Actuator\Health\HealthAggregatorInterface;
 
 /**
  * HealthIndicator that returns health indications from all registered delegates.
- *
- * @package Actuator\Health\Indicator
  */
 class CompositeHealthIndicator implements HealthIndicatorInterface
 {
@@ -25,10 +23,10 @@ class CompositeHealthIndicator implements HealthIndicatorInterface
     /**
      * Create a new CompositeHealthIndicator from the specified indicators.
      *
-     * @param HealthAggregatorInterface $healthAggregator
+     * @param HealthAggregatorInterface  $healthAggregator
      * @param HealthIndicatorInterface[] $indicators
      */
-    public function __construct(HealthAggregatorInterface $healthAggregator, array $indicators = array())
+    public function __construct(HealthAggregatorInterface $healthAggregator, array $indicators = [])
     {
         assert(!is_null($healthAggregator), 'HealthAggregator must not be null');
 
@@ -37,7 +35,7 @@ class CompositeHealthIndicator implements HealthIndicatorInterface
     }
 
     /**
-     * @param string $name
+     * @param string                   $name
      * @param HealthIndicatorInterface $indicator
      */
     public function addHealthIndicator($name, HealthIndicatorInterface $indicator)
@@ -52,7 +50,7 @@ class CompositeHealthIndicator implements HealthIndicatorInterface
      */
     public function health()
     {
-        $healths = array();
+        $healths = [];
         foreach ($this->indicators as $key => $indicator) {
             $healths[$key] = $indicator->health();
         }

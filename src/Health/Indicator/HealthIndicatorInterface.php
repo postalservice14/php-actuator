@@ -6,8 +6,6 @@ use Actuator\Health\Health;
 
 /**
  * Strategy interface used to provide an indication of application health.
- *
- * @package Actuator\Health\Indicator
  */
 interface HealthIndicatorInterface
 {
